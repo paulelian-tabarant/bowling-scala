@@ -1,5 +1,3 @@
-import org.junit.Before
-
 class BowlingTest extends munit.FunSuite {
   var bowling: Bowling = _
 
@@ -19,11 +17,19 @@ class BowlingTest extends munit.FunSuite {
     assertEquals(bowling.score(), 40)
   }
 
+  test("score of next roll is doubled when a spare has been made") {
+    bowling.roll(2)
+    bowling.roll(8)
+    bowling.roll(3)
+    rollMany(17, 0)
+
+    assertEquals(bowling.score(), 16)
+  }
+
   private def rollMany(times: Int, pins: Int): Unit = {
     for (_ <- 1 to times) {
       bowling.roll(pins)
     }
   }
-
 }
 
