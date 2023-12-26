@@ -1,20 +1,29 @@
+import org.junit.Before
+
 class BowlingTest extends munit.FunSuite {
+  var bowling: Bowling = _
 
-  test("score is zero when no pin is knocked down") {
-    val bowling = new Bowling()
+  override def beforeEach(context: BeforeEach): Unit = {
+    bowling = new Bowling
+  }
 
-    for (_ <- 1 to 20) {
-      bowling.roll(0)
-    }
+  test("score is 0 when no pin is knocked down") {
+    rollMany(20, 0)
 
     assertEquals(bowling.score(), 0)
   }
-}
 
-class Bowling() {
-  def score(): Int = 0
+  test("score is 40 when 2 is done at each roll") {
+    rollMany(20, 2)
 
-  def roll(i: Int): Unit = {
-
+    assertEquals(bowling.score(), 40)
   }
+
+  private def rollMany(times: Int, pins: Int): Unit = {
+    for (_ <- 1 to times) {
+      bowling.roll(pins)
+    }
+  }
+
 }
+
