@@ -11,13 +11,14 @@ class Bowling {
   def score(): Int = {
     var result = 0
 
-    for (index <- rolls.indices) {
-      if (index % 2 == 0) {
-        if (isSpare(index)) {
-          result += rolls(index + 2)
-        }
-        result += rolls(index) + rolls(index + 1)
+    rolls.indices.sliding(2, 2).foreach { pair =>
+      val index = pair.head
+
+      if (isSpare(index)) {
+        result += rolls(index + 2)
       }
+
+      result += rolls(index) + rolls(index + 1)
     }
 
     result
