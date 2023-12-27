@@ -4,14 +4,20 @@ class Bowling {
   private val TOTAL_PINS = 10
   private val rolls: ListBuffer[Int] = ListBuffer()
 
+  def roll(pins: Int): Unit = {
+    rolls += pins
+  }
+
   def score(): Int = {
     var result = 0
 
     for (index <- rolls.indices) {
-      if (isSpare(index)) {
-        result += rolls(index + 2)
+      if (index % 2 == 0) {
+        if (isSpare(index)) {
+          result += rolls(index + 2)
+        }
+        result += rolls(index) + rolls(index + 1)
       }
-      result += rolls(index)
     }
 
     result
@@ -19,9 +25,5 @@ class Bowling {
 
   private def isSpare(index: Int) = {
     index < rolls.size - 1 && rolls(index) + rolls(index + 1) == TOTAL_PINS
-  }
-
-  def roll(pins: Int): Unit = {
-    this.rolls += pins
   }
 }

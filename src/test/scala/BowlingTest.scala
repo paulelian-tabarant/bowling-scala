@@ -26,6 +26,16 @@ class BowlingTest extends munit.FunSuite {
     assertEquals(bowling.score(), 16)
   }
 
+  test("should not consider two rolls that sum 10 on two adjacent frames as a spare") {
+    bowling.roll(1)
+    bowling.roll(8)
+    bowling.roll(2)
+    bowling.roll(3)
+    rollMany(16, 0)
+
+    assertEquals(bowling.score(), 1 + 8 + 2 + 3)
+  }
+
   private def rollMany(times: Int, pins: Int): Unit = {
     for (_ <- 1 to times) {
       bowling.roll(pins)
