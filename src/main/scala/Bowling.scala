@@ -15,24 +15,32 @@ class Bowling {
       val index = pair.head
 
       if (isSpare(index)) {
-        result += rolls(index + 2)
+        result += rollAt(index + 2)
       }
 
       if (isStrike(index)) {
-        result += rolls(index + 1) + rolls(index + 2)
+        result += rollAt(index + 1) + rollAt(index + 2)
       }
 
-      result += rolls(index) + rolls(index + 1)
+      result += rollAt(index) + rollAt(index + 1)
     }
 
     result
   }
 
+  private def rollAt(index: Int) = {
+    if (index <= rolls.size - 1) {
+      rolls(index)
+    } else {
+      0
+    }
+  }
+
   private def isStrike(index: Int) = {
-    rolls(index) == TOTAL_PINS
+    rollAt(index) == TOTAL_PINS
   }
 
   private def isSpare(index: Int) = {
-    index < rolls.size - 1 && rolls(index) + rolls(index + 1) == TOTAL_PINS
+    rollAt(index) + rollAt(index + 1) == TOTAL_PINS
   }
 }
