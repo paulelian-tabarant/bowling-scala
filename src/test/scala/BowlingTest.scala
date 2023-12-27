@@ -6,13 +6,13 @@ class BowlingTest extends munit.FunSuite {
   }
 
   test("score is 0 when no pin is knocked down") {
-    rollMany(20, 0)
+    rollTimes(20, 0)
 
     assertEquals(bowling.score(), 0)
   }
 
   test("score is 40 when 2 is done at each roll") {
-    rollMany(20, 2)
+    rollTimes(20, 2)
 
     assertEquals(bowling.score(), 40)
   }
@@ -21,7 +21,7 @@ class BowlingTest extends munit.FunSuite {
     bowling.roll(2)
     bowling.roll(8)
     bowling.roll(3)
-    rollMany(17, 0)
+    rollTimes(17, 0)
 
     assertEquals(bowling.score(), 16)
   }
@@ -31,12 +31,23 @@ class BowlingTest extends munit.FunSuite {
     bowling.roll(8)
     bowling.roll(2)
     bowling.roll(3)
-    rollMany(16, 0)
+    rollTimes(16, 0)
 
     assertEquals(bowling.score(), 1 + 8 + 2 + 3)
   }
 
-  private def rollMany(times: Int, pins: Int): Unit = {
+  test("should double the next two rolls when a strike is made") {
+    val strike = 10
+
+    bowling.roll(strike)
+    bowling.roll(7)
+    bowling.roll(2)
+    rollTimes(17, 0)
+
+    assertEquals(bowling.score(), 10 + 2 * (7 + 2))
+  }
+
+  private def rollTimes(times: Int, pins: Int): Unit = {
     for (_ <- 1 to times) {
       bowling.roll(pins)
     }

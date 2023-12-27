@@ -18,10 +18,18 @@ class Bowling {
         result += rolls(index + 2)
       }
 
+      if (isStrike(index)) {
+        result += rolls(index + 1) + rolls(index + 2)
+      }
+
       result += rolls(index) + rolls(index + 1)
     }
 
     result
+  }
+
+  private def isStrike(index: Int) = {
+    rolls(index) == TOTAL_PINS
   }
 
   private def isSpare(index: Int) = {
