@@ -14,23 +14,23 @@ class Bowling {
     var strikesCount = 0
 
     for (framesCount <- 1 to LAST_FRAME) {
-      val index = (framesCount - 1) * 2 - strikesCount
+      val rollsCount = (framesCount - 1) * 2 - strikesCount
 
-      if (framesCount == LAST_FRAME && isStrike(index)) {
-        result += strikeScore(index)
+      if (framesCount == LAST_FRAME && isStrike(rollsCount)) {
+        result += strikeScore(rollsCount)
       }
 
-      else if (isSpare(index)) {
-        result += rollAt(index + 2)
+      else if (isSpare(rollsCount)) {
+        result += rollAt(rollsCount + 2)
       }
 
-      else if (isStrike(index)) {
-        result += strikeScore(index)
+      else if (isStrike(rollsCount)) {
+        result += strikeScore(rollsCount)
         strikesCount += 1
       }
 
-      if (!isStrike(index)) {
-        result += rollAt(index) + rollAt(index + 1)
+      if (!isStrike(rollsCount)) {
+        result += rollAt(rollsCount) + rollAt(rollsCount + 1)
       }
     }
 
