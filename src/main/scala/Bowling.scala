@@ -29,15 +29,19 @@ class Bowling {
         strikesCount += 1
       }
 
-      if (isStrike(rollsCount)) {
-        result += TOTAL_PINS
-      }
-      else {
-        result += rollAt(rollsCount) + rollAt(rollsCount + 1)
-      }
+      result += frameScore(rollsCount)
     }
 
     result
+  }
+
+  private def frameScore(rollsCount: Int): Int = {
+    if (isStrike(rollsCount)) {
+      TOTAL_PINS
+    }
+    else {
+      rollAt(rollsCount) + rollAt(rollsCount + 1)
+    }
   }
 
   private def strikeScore(count: Int): Int = {
