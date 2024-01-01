@@ -11,42 +11,43 @@ class Bowling {
 
   def score(): Int = {
     var result = 0
-    var strikesCount = 0
+    var strikes = 0
 
-    for (framesCount <- 1 to LAST_FRAME) {
-      val rollsCount = (framesCount - 1) * 2 - strikesCount + 1
+    for (frame <- 1 to LAST_FRAME) {
+      val roll = (frame - 1) * 2 - strikes + 1
 
-      if (isSpare(rollsCount)) {
-        result += rollAt(rollsCount + 2)
+      if (isSpare(roll)) {
+        result += pinsDownAt(roll + 2)
       }
 
-      else if (isStrike(rollsCount)) {
-        result += rollAt(rollsCount + 1) + rollAt(rollsCount + 2)
-        strikesCount += 1
+      else if (isStrike(roll)) {
+        result += pinsDownAt(roll + 1) + pinsDownAt(roll + 2)
+        strikes += 1
       }
 
-      result += frameScore(rollsCount)
+      result += frameScore(roll)
     }
 
     result
   }
 
-  private def frameScore(rollsCount: Int): Int = {
-    if (isStrike(rollsCount))
-      TOTAL_PINS
-    else
-      rollAt(rollsCount) + rollAt(rollsCount + 1)
+  private def frameScore(roll: Int): Int = {
+    if (isStrike(roll)) {
+      pinsDownAt(roll)
+    } else {
+      pinsDownAt(roll) + pinsDownAt(roll + 1)
+    }
   }
 
-  private def rollAt(count: Int) = {
-    rolls(count - 1)
+  private def pinsDownAt(roll: Int) = {
+    rolls(roll - 1)
   }
 
-  private def isStrike(count: Int) = {
-    rollAt(count) == TOTAL_PINS
+  private def isStrike(roll: Int) = {
+    pinsDownAt(roll) == TOTAL_PINS
   }
 
-  private def isSpare(count: Int) = {
-    rollAt(count) + rollAt(count + 1) == TOTAL_PINS
+  private def isSpare(roll: Int) = {
+    pinsDownAt(roll) + pinsDownAt(roll + 1) == TOTAL_PINS
   }
 }
