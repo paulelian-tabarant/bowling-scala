@@ -5,19 +5,19 @@ class BowlingTest extends munit.FunSuite {
     bowling = new Bowling
   }
 
-  test("score is 0 when no pin is knocked down") {
+  test("outputs 0 when no pin is knocked down") {
     rollTimes(20, 0)
 
     assertEquals(bowling.score(), 0)
   }
 
-  test("score is 40 when 2 is done at each roll") {
+  test("outputs 40 when 2 is done at each roll") {
     rollTimes(20, 2)
 
     assertEquals(bowling.score(), 40)
   }
 
-  test("score of next roll is doubled when a spare has been made") {
+  test("doubles first roll of next frame when a spare is made") {
     bowling.roll(2)
     bowling.roll(8)
     bowling.roll(3)
@@ -26,7 +26,7 @@ class BowlingTest extends munit.FunSuite {
     assertEquals(bowling.score(), 16)
   }
 
-  test("should not consider two rolls that sum 10 on two adjacent frames as a spare") {
+  test("does not consider two rolls that sum 10 on two adjacent frames as a spare") {
     bowling.roll(1)
     bowling.roll(8)
     bowling.roll(2)
@@ -36,7 +36,7 @@ class BowlingTest extends munit.FunSuite {
     assertEquals(bowling.score(), 1 + 8 + 2 + 3)
   }
 
-  test("should double the next two rolls when a strike is made") {
+  test("doubles the next two rolls when a strike is made") {
     val strike = 10
 
     bowling.roll(strike)
@@ -47,7 +47,7 @@ class BowlingTest extends munit.FunSuite {
     assertEquals(bowling.score(), 10 + 2 * (7 + 2))
   }
 
-  test("should recognize spares even if a strike has been made before") {
+  test("recognizes spares even if a strike has been made before") {
     val strike = 10
 
     bowling.roll(strike)
@@ -59,7 +59,7 @@ class BowlingTest extends munit.FunSuite {
     assertEquals(bowling.score(), 10 + 2 * (8 + 2) + 2 * 5)
   }
 
-  test("should add two bonus rolls on the last frame if a strike is made") {
+  test("adds two bonus rolls on the last frame if a strike is made") {
     val strike = 10
 
     rollTimes(18, 0)
@@ -71,7 +71,7 @@ class BowlingTest extends munit.FunSuite {
   }
 
   // acceptance test
-  test("should output 300 when perfect game") {
+  test("outputs 300 when perfect game") {
     val strike = 10
 
     rollTimes(12, strike)
