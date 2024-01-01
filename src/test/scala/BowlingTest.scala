@@ -59,6 +59,18 @@ class BowlingTest extends munit.FunSuite {
     assertEquals(bowling.score(), 10 + 2 * (8 + 2) + 2 * 5)
   }
 
+  test("should recognize spares even if a strike has been made before") {
+    val strike = 10
+
+    bowling.roll(strike)
+    bowling.roll(8)
+    bowling.roll(2)
+    bowling.roll(5)
+    rollTimes(17, 0)
+
+    assertEquals(bowling.score(), 10 + 2 * (8 + 2) + 2 * 5)
+  }
+
   private def rollTimes(times: Int, pins: Int): Unit = {
     for (_ <- 1 to times) {
       bowling.roll(pins)
