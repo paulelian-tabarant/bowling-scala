@@ -64,10 +64,19 @@ class BowlingTest extends munit.FunSuite {
 
     rollTimes(18, 0)
     bowling.roll(strike)
-    bowling.roll(0)
+    bowling.roll(2)
     bowling.roll(7)
 
-    assertEquals(bowling.score(), 17)
+    assertEquals(bowling.score(), 19)
+  }
+
+  // acceptance test
+  test("should output 300 when perfect game") {
+    val strike = 10
+
+    rollTimes(12, strike)
+
+    assertEquals(bowling.score(), 300)
   }
 
   private def rollTimes(times: Int, pins: Int): Unit = {
