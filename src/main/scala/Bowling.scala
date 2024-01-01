@@ -37,19 +37,19 @@ class Bowling {
     result
   }
 
-  private def strikeScore(index: Int): Int = {
-    TOTAL_PINS + rollAt(index + 1) + rollAt(index + 2)
+  private def strikeScore(count: Int): Int = {
+    TOTAL_PINS + rollAt(count + 1) + rollAt(count + 2)
   }
 
-  private def rollAt(index: Int) = {
-    if (index - 1 <= rolls.size - 1) rolls(index - 1) else 0
+  private def rollAt(count: Int) = {
+    if (count - 1 <= rolls.size - 1) rolls(count - 1) else 0
   }
 
-  private def isStrike(index: Int) = {
-    rollAt(index) == TOTAL_PINS
+  private def isStrike(count: Int) = {
+    rollAt(count) == TOTAL_PINS
   }
 
-  private def isSpare(index: Int) = {
-    rollAt(index) + rollAt(index + 1) == TOTAL_PINS
+  private def isSpare(count: Int) = {
+    rollAt(count) + rollAt(count + 1) == TOTAL_PINS
   }
 }
