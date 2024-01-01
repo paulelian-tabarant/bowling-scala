@@ -17,7 +17,7 @@ class Bowling {
       val rollsCount = (framesCount - 1) * 2 - strikesCount + 1
 
       if (framesCount == LAST_FRAME && isStrike(rollsCount)) {
-        result += strikeScore(rollsCount)
+        result += rollAt(rollsCount + 1) + rollAt(rollsCount + 2)
       }
 
       else if (isSpare(rollsCount)) {
@@ -25,11 +25,14 @@ class Bowling {
       }
 
       else if (isStrike(rollsCount)) {
-        result += strikeScore(rollsCount)
+        result += rollAt(rollsCount + 1) + rollAt(rollsCount + 2)
         strikesCount += 1
       }
 
-      if (!isStrike(rollsCount)) {
+      if (isStrike(rollsCount)) {
+        result += TOTAL_PINS
+      }
+      else {
         result += rollAt(rollsCount) + rollAt(rollsCount + 1)
       }
     }
