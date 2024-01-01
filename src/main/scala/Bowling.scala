@@ -39,7 +39,7 @@ class Bowling {
   }
 
   private def rollAt(count: Int) = {
-    if (count <= rolls.size) rolls(count - 1) else 0
+    rolls(count - 1)
   }
 
   private def isStrike(count: Int) = {
