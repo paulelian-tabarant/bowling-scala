@@ -11,26 +11,39 @@ class Bowling {
   def score(): Int = {
     var result = 0
     var strikesCount = 0
+    var framesCount = 1
 
     rolls.indices.sliding(2, 2).foreach { pair =>
       val index = pair.head - strikesCount
 
-      if (isSpare(index)) {
-        result += rollAt(index + 2)
-      }
+      if (framesCount <= 10) {
+        if (framesCount == 10 && isStrike(index)) {
+          result += strikeScore(index)
+          framesCount+= 1
+        }
 
-      if (isStrike(index)) {
-        result += TOTAL_PINS
-        result += rollAt(index + 1) + rollAt(index + 2)
-        strikesCount += 1
-      }
+        else if (isSpare(index)) {
+          result += rollAt(index + 2)
+        }
 
-      else {
-        result += rollAt(index) + rollAt(index + 1)
+        else if (isStrike(index)) {
+          result += strikeScore(index)
+          strikesCount += 1
+          framesCount += 1
+        }
+
+        if (!isStrike(index)) {
+          result += rollAt(index) + rollAt(index + 1)
+          framesCount += 1
+        }
       }
     }
 
     result
+  }
+
+  private def strikeScore(index: Int): Int = {
+    TOTAL_PINS + rollAt(index + 1) + rollAt(index + 2)
   }
 
   private def rollAt(index: Int) = {
