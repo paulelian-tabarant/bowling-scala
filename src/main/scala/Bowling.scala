@@ -16,11 +16,7 @@ class Bowling {
     for (framesCount <- 1 to LAST_FRAME) {
       val rollsCount = (framesCount - 1) * 2 - strikesCount + 1
 
-      if (framesCount == LAST_FRAME && isStrike(rollsCount)) {
-        result += rollAt(rollsCount + 1) + rollAt(rollsCount + 2)
-      }
-
-      else if (isSpare(rollsCount)) {
+      if (isSpare(rollsCount)) {
         result += rollAt(rollsCount + 2)
       }
 
@@ -36,12 +32,10 @@ class Bowling {
   }
 
   private def frameScore(rollsCount: Int): Int = {
-    if (isStrike(rollsCount)) {
+    if (isStrike(rollsCount))
       TOTAL_PINS
-    }
-    else {
+    else
       rollAt(rollsCount) + rollAt(rollsCount + 1)
-    }
   }
 
   private def rollAt(count: Int) = {
