@@ -1,5 +1,6 @@
 class BowlingTest extends munit.FunSuite {
   var bowling: Bowling = _
+  val strike = 10
 
   override def beforeEach(context: BeforeEach): Unit = {
     bowling = new Bowling
@@ -37,8 +38,6 @@ class BowlingTest extends munit.FunSuite {
   }
 
   test("doubles the next two rolls when a strike is made") {
-    val strike = 10
-
     bowling.roll(strike)
     bowling.roll(7)
     bowling.roll(2)
@@ -48,8 +47,6 @@ class BowlingTest extends munit.FunSuite {
   }
 
   test("recognizes spares even if a strike has been made before") {
-    val strike = 10
-
     bowling.roll(strike)
     bowling.roll(8)
     bowling.roll(2)
@@ -60,8 +57,6 @@ class BowlingTest extends munit.FunSuite {
   }
 
   test("adds two bonus rolls on the last frame if a strike is made") {
-    val strike = 10
-
     rollTimes(18, 0)
     bowling.roll(strike)
     bowling.roll(2)
@@ -72,8 +67,6 @@ class BowlingTest extends munit.FunSuite {
 
   // acceptance test
   test("outputs 300 when perfect game") {
-    val strike = 10
-
     rollTimes(12, strike)
 
     assertEquals(bowling.score(), 300)
