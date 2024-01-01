@@ -1,8 +1,8 @@
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.ArrayBuffer
 
 class Bowling {
   private val TOTAL_PINS = 10
-  private val rolls: ListBuffer[Int] = ListBuffer()
+  private val rolls: ArrayBuffer[Int] = ArrayBuffer()
 
   def roll(pins: Int): Unit = {
     rolls += pins
