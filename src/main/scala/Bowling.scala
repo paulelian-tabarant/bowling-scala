@@ -2,6 +2,7 @@ import scala.collection.mutable.ArrayBuffer
 
 class Bowling {
   private val TOTAL_PINS = 10
+  private val LAST_FRAME = 10
   private val rolls: ArrayBuffer[Int] = ArrayBuffer()
 
   def roll(pins: Int): Unit = {
@@ -11,15 +12,13 @@ class Bowling {
   def score(): Int = {
     var result = 0
     var strikesCount = 0
-    var framesCount = 1
 
-    rolls.indices.sliding(2, 2).foreach { pair =>
-      val index = pair.head - strikesCount
+    for (framesCount <- 1 to 10) {
+      val index = (framesCount - 1) * 2 - strikesCount
 
-      if (framesCount <= 10) {
-        if (framesCount == 10 && isStrike(index)) {
+      if (framesCount <= LAST_FRAME) {
+        if (framesCount == LAST_FRAME && isStrike(index)) {
           result += strikeScore(index)
-          framesCount+= 1
         }
 
         else if (isSpare(index)) {
@@ -29,12 +28,10 @@ class Bowling {
         else if (isStrike(index)) {
           result += strikeScore(index)
           strikesCount += 1
-          framesCount += 1
         }
 
         if (!isStrike(index)) {
           result += rollAt(index) + rollAt(index + 1)
-          framesCount += 1
         }
       }
     }
