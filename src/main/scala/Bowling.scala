@@ -14,7 +14,7 @@ class Bowling {
     var strikes = 0
 
     for (frame <- 1 to LAST_FRAME) {
-      val roll = (frame - 1) * 2 - strikes + 1
+      val roll = countRolls(frame, strikes)
 
       if (isSpare(roll)) {
         result += pinsDownAt(roll + 2)
@@ -29,6 +29,10 @@ class Bowling {
     }
 
     result
+  }
+
+  private def countRolls(frame: Int, strikes: Int): Int = {
+    (frame - 1) * 2 - strikes + 1
   }
 
   private def frameScore(roll: Int): Int = {
